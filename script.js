@@ -688,19 +688,33 @@ function deletePlace(type, index) {
 
 // ================== IDEAS VAULT ==================
 
+// ================== IDEAS VAULT ==================
+
 function getIdeas() {
-  const saved = JSON.parse(localStorage.getItem("ideas"));
-  if (!saved) {
+  const raw = localStorage.getItem("ideas");
+
+  if (!raw) {
     localStorage.setItem("ideas", JSON.stringify([]));
     return [];
   }
-  return saved;
+
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    console.error("Corrupted ideas in storage, resetting.", e);
+    localStorage.setItem("ideas", JSON.stringify([]));
+    return [];
+  }
 }
 
 function addIdea() {
   const textEl = document.getElementById("ideaText");
   const tagEl = document.getElementById("ideaTag");
-  if (!textEl || !tagEl) return;
+
+  if (!textEl || !tagEl) {
+    console.error("Idea inputs not found");
+    return;
+  }
 
   const text = textEl.value.trim();
   if (!text) return;
@@ -724,8 +738,7 @@ function renderIdeas() {
   const el = document.getElementById("ideasList");
   if (!el) return;
 
-  const search = (document.getElementById("ideaSearch")?.value || "").toLowerCase();
-  const ideas = getIdeas().filter(i => i.text.toLowerCase().includes(search));
+  const ideas = getIdeas();
 
   if (!ideas.length) {
     el.innerHTML = `<p class="subtitle">No ideas yet. Add one 🤍</p>`;
@@ -744,6 +757,7 @@ function renderIdeas() {
     </div>
   `).join("");
 }
+
 
 // ================== HABITS ==================
 
