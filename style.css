@@ -15,18 +15,18 @@ body {
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start; /* 👈 was center, caused cramped feel */
+  align-items: flex-start; 
   color: #1f2933;
-  padding: 24px 12px; /* 👈 gives breathing room around the card */
+  padding: 24px 12px; 
 }
 
 /* ===== App Container ===== */
 .app {
   width: 100%;
-  max-width: 420px; /* 👈 slightly tighter = nicer proportions */
+  max-width: 420px; 
   background: white;
   border-radius: 20px;
-  padding: 28px 24px 32px; /* 👈 consistent inner spacing */
+  padding: 28px 24px 32px; 
   box-shadow: 0 20px 50px rgba(0,0,0,0.08);
   animation: fadeIn 0.35s ease;
   margin: 0 auto;
@@ -70,7 +70,7 @@ select {
   font-size: 1rem;
   background: #fafafa;
   transition: border 0.2s, box-shadow 0.2s;
-  margin-bottom: 12px; /* 👈 space between fields */
+  margin-bottom: 12px; 
 }
 
 .input:focus,
@@ -86,7 +86,7 @@ select:focus {
 .primary {
   width: 100%;
   margin-top: 8px;
-  margin-bottom: 16px; /* 👈 space before result box */
+  margin-bottom: 16px; 
   padding: 14px 16px;
   border-radius: 14px;
   border: none;
@@ -251,57 +251,34 @@ body.dark .subtitle {
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
 }
-/* ================== DESKTOP ENHANCEMENTS ================== */
+/* ================== DESKTOP LAYOUT FIX ================== */
 @media (min-width: 900px) {
   body {
-    padding: 40px 24px;
+    padding: 48px 32px;
   }
 
   .app {
-    max-width: 640px;          /* wider on desktop */
-    padding: 40px 36px 44px;   /* more breathing room */
-    border-radius: 24px;
+    max-width: 900px;        
+    padding: 40px 40px 48px; 
+    border-radius: 28px;
   }
 
   h1 {
-    font-size: 1.9rem;
-    margin-bottom: 20px;
-  }
-
-  p {
-    margin: 18px 0 10px;
-    font-size: 1.05rem;
-  }
-
-  .input,
-  input,
-  select {
-    padding: 14px 16px;
-    font-size: 1.05rem;
-    margin-bottom: 14px;
-  }
-
-  .primary {
-    padding: 16px 18px;
-    font-size: 1.05rem;
-    margin-bottom: 20px;
-  }
-
-  .result-box {
-    padding: 20px;
-    font-size: 1rem;
+    font-size: 2rem;
+    margin-bottom: 24px;
   }
 
   .grid {
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 24px;
   }
 
   .card {
-    padding: 22px 20px;
+    padding: 24px 22px;
   }
 
   .card h3 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
   }
 
   .card p {
