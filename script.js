@@ -1,10 +1,23 @@
 // ================== DARK MODE (WORKING) ==================
 
 // Runs on every page load and applies saved mode
+// ================== DARK MODE (DEFAULT = ON) ==================
 (function initDarkMode() {
-  const isDark = localStorage.getItem("darkMode") === "true"; // read saved value
-  document.body.classList.toggle("dark", isDark); // apply class to body
+  const saved = localStorage.getItem("darkMode");
+
+  // If there's no saved preference yet, default to DARK
+  const isDark = saved === null ? true : saved === "true";
+
+  document.body.classList.toggle("dark", isDark);
+  localStorage.setItem("darkMode", isDark.toString());
 })();
+
+// Toggle function (🌙 button)
+function toggleDark() {
+  const isDarkNow = document.body.classList.toggle("dark");
+  localStorage.setItem("darkMode", isDarkNow.toString());
+}
+
 
 // Called by the 🌙 button
 function toggleDark() {
