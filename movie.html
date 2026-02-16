@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pick Something to Watch</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <h1>🎬 Let’s pick something to watch</h1>
+  <p class="subtitle">Answer a couple things and I’ll decide 🤍</p>
+
+  <label for="watchType">Do you want a movie or a show?</label>
+  <select id="watchType" class="input">
+    <option value="movie">Movie</option>
+    <option value="show">Show</option>
+  </select>
+
+  <label for="genreMood">What genre are you in the mood for?</label>
+  <select id="genreMood" class="input">
+    <option value="comfort">Comfort / Cozy</option>
+    <option value="fun">Fun / Entertaining</option>
+    <option value="interesting">Interesting / Thoughtful</option>
+  </select>
+
+  <label for="movieBrain">How’s your brain?</label>
+  <select id="movieBrain" class="input">
+    <option value="off">Off please</option>
+    <option value="normal">Normal</option>
+    <option value="engaged">I can think</option>
+  </select>
+
+  <button class="primary" onclick="decideMovie()">Decide for me 🤍</button>
+
+  <div class="result-box">
+    <p id="movieResult">Answer the questions and I’ll decide ✨</p>
+    <div id="saveActions" style="display:none; margin-top:10px;">
+      <button class="primary" onclick="savePick('want')">💾 Save to “Want to watch”</button>
+      <button class="ghost" onclick="savePick('watched')">✅ Mark as “Already watched”</button>
+    </div>
+  </div>
+
+  <a href="home.html" class="ghost">← Back</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

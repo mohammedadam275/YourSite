@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Activity</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <h1>🌿 Let’s pick something to do</h1>
+
+  <p>Energy level?</p>
+  <select id="actEnergy" class="input" title="Energy level" aria-label="Energy level">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <p>Stay in or go out?</p>
+  <select id="actPlace" class="input" title="Stay in or go out?" aria-label="Stay in or go out?">
+    <option value="in">Stay in</option>
+    <option value="out">Go out</option>
+  </select>
+
+  <button class="primary" onclick="decideActivity()">Decide for me 🤍</button>
+
+  <div class="result-box">
+    <p id="activityResult">Answer and I’ll decide ✨</p>
+  </div>
+
+  <a href="home.html">← Back</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

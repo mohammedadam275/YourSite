@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Habits</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="left">
+      <button class="icon-btn" onclick="toggleDark()">🌙</button>
+    </div>
+    <div class="center">Habits 🌱</div>
+    <div class="right"></div>
+  </header>
+
+  <h1>🌱 Gentle Habits</h1>
+  <p>Just tap what you did today. No pressure.</p>
+
+  <div class="result-box">
+    <div id="habitsList"></div>
+  </div>
+
+  <a href="home.html" class="ghost">← Back</a>
+</div>
+
+<script src="script.js"></script>
+<script>renderHabits();</script>
+</body>
+</html>

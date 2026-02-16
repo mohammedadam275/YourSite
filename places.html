@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Places</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="left">
+      <button class="icon-btn" onclick="toggleDark()">🌙</button>
+    </div>
+    <div class="center">Places 📍</div>
+    <div class="right"></div>
+  </header>
+
+  <h1>📍 Places</h1>
+
+  <p>Add a place</p>
+  <input id="placeName" class="input" placeholder="e.g., Big Sur coastline" />
+
+  <select id="placeType" class="input" title="Place type" aria-label="Place type">
+    <option value="loved">Been & Loved ❤️</option>
+    <option value="want">Want to Go ✨</option>
+  </select>
+
+  <button class="primary" onclick="addPlace()">Save place 🤍</button>
+
+  <div class="result-box">
+    <h3>❤️ Been & Loved</h3>
+    <div id="placesLoved" class="list"></div>
+
+    <h3 style="margin-top:16px;">✨ Want to Go</h3>
+    <div id="placesWant" class="list"></div>
+  </div>
+
+  <a href="home.html" class="ghost">← Back</a>
+</div>
+
+<script src="script.js"></script>
+<script>
+  renderPlaces();
+</script>
+</body>
+</html>
