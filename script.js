@@ -18,13 +18,6 @@ function toggleDark() {
   localStorage.setItem("darkMode", isDarkNow.toString());
 }
 
-
-// Called by the 🌙 button
-function toggleDark() {
-  const isDarkNow = document.body.classList.toggle("dark"); // toggles and returns new state
-  localStorage.setItem("darkMode", isDarkNow.toString()); // save it
-}
-
 // ================== Gate ==================
 const acceptedAnswers = ["carissa", "me"];
 
@@ -585,8 +578,15 @@ function decideSurpriseFrom(topic) {
     document.getElementById("surpriseResult").textContent = "Surprise food idea: " + randomPick([...comfortFoods, ...freshFoods, ...newFoods]);
   } else if (topic === "watch") {
     document.getElementById("surpriseResult").textContent = "Surprise watch pick: " + randomPick([...comfortMovies, ...funMovies, ...interestingMovies]);
-  } else if (topic === "activity") {
-    document.getElementById("surpriseResult").textContent = "Surprise activity: " + randomPick(activities);
+  } } else if (topic === "activity") {
+  const allActivities = [
+    ...outLowEnergy, ...outMediumEnergy, ...outHighEnergy,
+    ...inChill, ...inFun, ...inProductive
+  ];
+  document.getElementById("surpriseResult").textContent =
+    "Surprise activity: " + randomPick(allActivities);
+}
+
   } else if (topic === "book") {
     const allBooks = [
       ...fictionBooks.romance, ...fictionBooks.fantasy, ...fictionBooks.mystery, ...fictionBooks.literary,
@@ -688,8 +688,6 @@ function deletePlace(type, index) {
 
 // ================== IDEAS VAULT ==================
 
-// ================== IDEAS VAULT ==================
-
 function getIdeas() {
   const raw = localStorage.getItem("ideas");
 
@@ -787,21 +785,82 @@ function toggleHabit(index) {
   renderHabits();
 }
 
+// ================== HABITS ==================
+
+function getHabits() {
+  const raw = localStorage.getItem("habits");
+
+  if (!raw) {
+    localStorage.setItem("habits", JSON.stringify([]));
+    return [];
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch {
+    localStorage.setItem("habits", JSON.stringify([]));
+    return [];
+  }
+}
+
+function saveHabits(habits) {
+  localStorage.setItem("habits", JSON.stringify(habits));
+}
+
+function toggleHabit(index) {
+  const habits = getHabits();
+  habits[index].done = !habits[index].done;
+  saveHabits(habits);
+  renderHabits();
+}
+
+function addHabit() {
+  const input = document.getElementById("newHabitInput");
+  if (!input) return;
+
+  const text = input.value.trim();
+  if (!text) return;
+
+  const habits = getHabits();
+  habits.push({ text, done: false });
+
+  saveHabits(habits);
+  input.value = "";
+  renderHabits();
+}
+
+function deleteHabit(index) {
+  const habits = getHabits();
+  habits.splice(index, 1);
+  saveHabits(habits);
+  renderHabits();
+}
+
+function clearHabits() {
+  if (!confirm("Clear all habits? You can always add new ones 🤍")) return;
+  saveHabits([]);
+  renderHabits();
+}
+
 function renderHabits() {
   const el = document.getElementById("habitsList");
   if (!el) return;
 
   const habits = getHabits();
 
+  if (!habits.length) {
+    el.innerHTML = `<p class="subtitle">No habits yet. Add one 🤍</p>`;
+    return;
+  }
+
   el.innerHTML = habits.map((h, i) => `
     <div class="list-item">
-      <div><strong>${h.name}</strong></div>
-      <div class="actions">
-        <button class="icon-btn" onclick="toggleHabit(${i})">
-          ${h.done ? "✅" : "⬜️"}
-        </button>
+      <div onclick="toggleHabit(${i})" style="cursor:pointer;">
+        ${h.done ? "✅" : "⬜"} ${h.text}
       </div>
+      <button class="icon-btn" onclick="deleteHabit(${i})">🗑️</button>
     </div>
   `).join("");
 }
+
 
