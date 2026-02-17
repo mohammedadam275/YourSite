@@ -17,10 +17,27 @@
   </header>
 
   <h1>🌱 Gentle Habits</h1>
-  <p>Just tap what you did today. No pressure.</p>
+  <p>Make this your own list. Check things off when you want. No pressure.</p>
 
   <div class="result-box">
     <div id="habitsList"></div>
+  </div>
+
+  <div class="result-box">
+    <h3>Add a habit</h3>
+    <input
+      id="newHabitInput"
+      class="input"
+      placeholder="e.g., Drink water, Stretch, Read 10 pages..."
+    />
+    <button class="primary" onclick="addHabit()">Add habit 🤍</button>
+    <button
+      class="primary"
+      onclick="clearHabits()"
+      style="margin-top:8px; background:#ef4444;"
+    >
+      Clear all habits 🧹
+    </button>
   </div>
 
   <a href="home.html" class="ghost">← Back</a>
