@@ -8,32 +8,24 @@
 </head>
 <body>
 <div class="app">
-  <h1>🎲 Surprise me</h1>
-  <p class="subtitle">What do you want the surprise to be about?</p>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <h1>🎲 Surprise Me</h1>
 
-  <label for="surpriseTopic">Surprise me with:</label>
   <select id="surpriseTopic" class="input">
+    <option value="anything">Anything</option>
     <option value="food">Food</option>
-    <option value="watch">Movie / Show</option>
+    <option value="watch">Watch</option>
     <option value="activity">Activity</option>
     <option value="book">Book</option>
-    <option value="anything">Anything</option>
   </select>
 
-  <label for="surpriseEnergy">How’s your energy?</label>
-  <select id="surpriseEnergy" class="input">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
-
-  <button class="primary" onclick="decideSurprise()">Surprise me 🤍</button>
+  <button class="primary" onclick="decideSurprise()">Decide</button>
 
   <div class="result-box">
-    <p id="surpriseResult">Answer and I’ll decide ✨</p>
+    <p id="surpriseResult">Feeling lucky? ✨</p>
   </div>
 
-  <a href="home.html" class="ghost">← Back</a>
+  <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
