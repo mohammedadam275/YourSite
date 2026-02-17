@@ -1,45 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ideas Vault</title>
+  <title>Ideas</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="left">
-      <button class="icon-btn" onclick="toggleDark()">🌙</button>
-    </div>
-    <div class="center">Ideas Vault 💡</div>
-    <div class="right"></div>
-  </header>
-
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
   <h1>💡 Ideas Vault</h1>
-  <p>What kind of idea do you want to save?</p>
 
-  <label for="ideaTag">Idea category</label>
-  <select id="ideaTag" class="input" aria-label="Idea category" title="Idea category">
+  <select id="ideaTag" class="input">
     <option value="date">Date</option>
     <option value="travel">Travel</option>
     <option value="gift">Gift</option>
     <option value="project">Project</option>
-    <option value="dream">Dream</option>
     <option value="random">Random</option>
   </select>
 
-  <p>Write the idea</p>
-  <input id="ideaText" class="input" placeholder="e.g., Sunset picnic at the beach" />
-
-  <button class="primary" onclick="addIdea()">Save idea 🤍</button>
+  <input id="ideaText" class="input" placeholder="Write your idea..." />
+  <button class="primary" onclick="addIdea()">Save idea</button>
 
   <div class="result-box">
-    <h3>Saved Ideas</h3>
     <div id="ideasList"></div>
   </div>
 
-  <a href="home.html" class="ghost">← Back</a>
+  <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
