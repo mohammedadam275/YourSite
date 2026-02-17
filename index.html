@@ -1,24 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <title>Your own little site 🤍</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>For You 🤍</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="app" id="gate">
-    <h1> Hi you</h1>
-    <p class="subtitle">One tiny thing before you enter…</p>
+<div class="app">
+  <h1>🤍</h1>
+  <p>Who is this for? (hint: it’s you)</p>
+  <input id="answerInput" class="input" placeholder="Type your answer…" />
+  <button class="primary" onclick="checkAnswer()">Enter</button>
+  <p id="gateMessage" class="subtitle"></p>
+</div>
 
-    <p class="question">Who is this for? <span class="hint">(hint, it’s you)</span></p>
-
-    <input id="answerInput" class="input" placeholder="Type your answer…" />
-    <button class="primary" onclick="checkAnswer()">Enter ✨</button>
-
-    <p id="gateMessage" class="tag"></p>
-  </div>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
