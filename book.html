@@ -3,43 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pick a Book</title>
+  <title>Book</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="app">
-  <h1>📚 Let’s pick a book</h1>
-  <p class="subtitle">Tell me what you’re in the mood to read.</p>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <h1>📚 Book</h1>
 
-  <label for="bookType">Fiction or Non-fiction?</label>
   <select id="bookType" class="input">
     <option value="fiction">Fiction</option>
     <option value="nonfiction">Non-fiction</option>
   </select>
 
-  <label for="bookGenre">What genre?</label>
-  <select id="bookGenre" class="input" title="What genre?">
-    <option value="romance">Romance</option>
-    <option value="fantasy">Fantasy / Sci-Fi</option>
-    <option value="mystery">Mystery / Thriller</option>
-    <option value="literary">Literary / Contemporary</option>
-    <option value="selfhelp">Self-help / Life</option>
-    <option value="history">History / Biography</option>
-  </select>
-
-  <p>How long?</p>
-  <select id="bookLength" class="input" title="How long?">
-    <option value="short">Short / Easy</option>
-    <option value="long">Longer / Immersive</option>
-  </select>
-
-  <button class="primary" onclick="decideBook()">Decide for me 🤍</button>
+  <button class="primary" onclick="decideBook()">Decide</button>
 
   <div class="result-box">
-    <p id="bookResult">Answer the questions and I’ll decide ✨</p>
+    <p id="bookResult">Let’s find a book ✨</p>
   </div>
 
-  <a href="home.html" class="ghost">← Back</a>
+  <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
