@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emotional Vault</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app">
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+
+  <h1>🗝️ Emotional Vault</h1>
+  <p class="subtitle">Open one when you need it 🤍</p>
+
+  <div class="result-box">
+    <button class="primary" onclick="openVault('doubt')">💭 Open when you’re doubting yourself</button>
+    <button class="primary" onclick="openVault('sleep')">🌙 Open when you can’t sleep</button>
+    <button class="primary" onclick="openVault('miss')">🫂 Open when you miss me</button>
+    <button class="primary" onclick="openVault('overwhelmed')">🌧️ Open when today was too much</button>
+    <button class="primary" onclick="openVault('comfort')">🌤️ Open when you need comfort</button>
+    <button class="primary" onclick="openVault('proud')">✨ Open when you’re proud of yourself</button>
+  </div>
+
+  <div class="result-box" style="margin-top:16px;">
+    <p id="vaultResult">Pick one 🤍</p>
+  </div>
+
+  <a href="home.html">← Back</a>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
