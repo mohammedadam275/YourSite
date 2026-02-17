@@ -519,6 +519,247 @@ const nonfictionBooks = {
   ]
 };
 
+// ================== EMOTIONAL VAULT ==================
+
+const emotionalVault = {
+  calm: [
+    "The room is quiet enough to hear your own thoughts rearrange themselves.",
+    "Nothing is demanding you right now. Even time is sitting down.",
+    "Breathe like you’re not being chased by the day.",
+    "Some moments are meant to be held, not used.",
+    "You don’t have to become anything in this minute.",
+    "The world can wait while you exist gently.",
+    "Even your worries seem to speak in softer voices here.",
+    "Stillness isn’t empty. It’s full of space.",
+    "Let your shoulders remember they are allowed to rest.",
+    "There is no audience. You can be simple.",
+    "This is what it feels like when nothing is asking.",
+    "Peace isn’t loud. It doesn’t need to convince you.",
+    "You are not late for your own life.",
+    "The air feels like it was arranged just for breathing.",
+    "Some days are meant to be walked, not solved.",
+    "You can stay here a moment longer.",
+    "Even your heartbeat sounds patient.",
+    "Nothing is missing from this second.",
+    "You don’t owe the silence anything.",
+    "Rest is also a form of strength."
+  ],
+
+  anxious: [
+    "Your thoughts are running, but you are not required to chase them.",
+    "Not everything urgent is important.",
+    "Even storms get tired of being loud.",
+    "You don’t have to solve the whole future tonight.",
+    "Your mind is loud because it’s trying to protect you.",
+    "Fear speaks quickly. Truth usually doesn’t rush.",
+    "You’re allowed to pause without falling behind.",
+    "Anxiety is just imagination with too much coffee.",
+    "Nothing terrible is happening in this exact second.",
+    "Your breath is still yours. That counts for something.",
+    "You are not in danger just because you’re uncomfortable.",
+    "Thoughts can lie. Sensations can exaggerate.",
+    "You don’t have to win against your mind—just sit beside it.",
+    "Even panic eventually runs out of sentences.",
+    "You’re doing better than your nerves are admitting.",
+    "It’s okay to move slowly through fast thoughts.",
+    "Not every alarm deserves action.",
+    "You don’t need certainty to survive this minute.",
+    "This feeling will not get to keep you.",
+    "You are still here. That’s not nothing."
+  ],
+
+  sad: [
+    "Some days carry their own weather inside you.",
+    "Grief doesn’t mean you’re broken. It means you noticed.",
+    "You don’t have to translate your heaviness into words.",
+    "Even quiet pain deserves a place to sit.",
+    "There is no deadline on feeling this.",
+    "Not all wounds want advice.",
+    "You are allowed to be softer today.",
+    "Sadness doesn’t make you smaller. It makes you honest.",
+    "Some things hurt because they mattered.",
+    "You don’t need to perform strength.",
+    "Tears are not a failure of control.",
+    "Even the heart needs to limp sometimes.",
+    "You don’t have to make meaning yet.",
+    "Being heavy doesn’t make you useless.",
+    "Some days are for surviving, not shining.",
+    "You are not behind because you’re hurting.",
+    "This feeling is not your identity.",
+    "You are more than the weight you’re carrying.",
+    "It’s okay if today is just quiet and real.",
+    "Nothing about you is wasted here."
+  ],
+
+  lonely: [
+    "Loneliness doesn’t mean you’re unworthy of company.",
+    "Sometimes absence makes a lot of noise.",
+    "You can miss people without disappearing yourself.",
+    "Not being seen doesn’t mean you’re invisible.",
+    "Even solitude has a heartbeat.",
+    "You are still part of the world, even when it’s quiet.",
+    "Loneliness is proof you were made for connection.",
+    "You don’t have to rush to fill the silence.",
+    "Some rooms feel empty because they’re waiting.",
+    "You’re not forgotten—you’re just between echoes.",
+    "Being alone isn’t the same as being unloved.",
+    "You are still in conversation with tomorrow.",
+    "Even quiet people leave impressions.",
+    "You don’t need to audition for belonging.",
+    "The world hasn’t closed its doors to you.",
+    "Some connections take their time finding you.",
+    "You’re not late to your own story.",
+    "Your presence still counts, even unobserved.",
+    "You don’t need to vanish to be alone.",
+    "Someone’s absence doesn’t cancel your existence."
+  ],
+
+  overwhelmed: [
+    "You are carrying too many days at once.",
+    "Not everything needs to be held in the same hand.",
+    "It’s okay to put some thoughts down.",
+    "You don’t need to solve your whole life tonight.",
+    "Even strong things need surfaces to rest on.",
+    "Your limits are not moral failures.",
+    "You can move one small thing instead of everything.",
+    "Being full doesn’t mean you’re broken.",
+    "Some pressure comes from trying to be everywhere.",
+    "You are allowed to choose the smallest next step.",
+    "Your nervous system is not your enemy.",
+    "You don’t need to earn rest by collapsing.",
+    "Even oceans move one wave at a time.",
+    "You’re not behind—you’re just carrying a lot.",
+    "It’s okay to simplify this hour.",
+    "Not everything urgent is yours to fix.",
+    "You don’t need a perfect plan to continue.",
+    "Your worth isn’t measured by your output.",
+    "You can survive this without mastering it.",
+    "Pause is not the same as quitting."
+  ],
+
+  hopeful: [
+    "Some mornings feel like unopened letters.",
+    "Not all beginnings announce themselves.",
+    "Hope is quiet but stubborn.",
+    "You don’t need certainty to move forward.",
+    "Even small light changes a room.",
+    "Something is already shifting, even if you can’t name it.",
+    "You’re allowed to expect gentler days.",
+    "The future doesn’t have to be dramatic to be better.",
+    "Not everything good arrives loudly.",
+    "You’re not imagining the possibility of more.",
+    "Growth rarely feels heroic in the moment.",
+    "You are allowed to want better without proving why.",
+    "Some doors open like breathing, not like miracles.",
+    "The story isn’t finished with you.",
+    "You don’t need permission to hope.",
+    "Even patience is a form of movement.",
+    "Tomorrow doesn’t need to be perfect to be new.",
+    "Your life is still in draft form.",
+    "Change often starts as a whisper.",
+    "You’re closer to something than you think."
+  ],
+
+  confident: [
+    "You don’t need to announce your strength for it to exist.",
+    "Quiet certainty lasts longer than noise.",
+    "You’ve survived enough to trust yourself.",
+    "You don’t need to borrow anyone else’s posture.",
+    "Being steady is more impressive than being loud.",
+    "You know more than you think you do.",
+    "You’re allowed to take up space without apologizing.",
+    "You don’t need to prove what you already are.",
+    "Your presence has weight, even when you’re gentle.",
+    "You don’t need permission to stand where you stand.",
+    "Confidence doesn’t rush—it arrives.",
+    "You are not fragile just because you’re thoughtful.",
+    "You’ve earned your own voice.",
+    "You don’t need to explain your boundaries.",
+    "You can be kind without being small.",
+    "Strength isn’t always visible. That doesn’t make it weaker.",
+    "You’re not guessing—you’re choosing.",
+    "You belong in the room you’re in.",
+    "You don’t have to shrink to be safe.",
+    "You are already enough to proceed."
+  ],
+
+  reflective: [
+    "Some thoughts want to be walked, not solved.",
+    "You are not the same person you were—and that’s not an accident.",
+    "Memory is a conversation, not a verdict.",
+    "You can look back without living there.",
+    "Not everything needs to be concluded today.",
+    "Understanding often arrives after acceptance.",
+    "You’ve changed in ways you don’t yet notice.",
+    "Your past is a chapter, not the whole book.",
+    "Some lessons don’t announce themselves as lessons.",
+    "You don’t need to judge every earlier version of yourself.",
+    "Even mistakes can be evidence of effort.",
+    "You’re allowed to outgrow old explanations.",
+    "Reflection isn’t regret. It’s orientation.",
+    "You’re still editing, and that’s human.",
+    "Not everything unfinished is a failure.",
+    "You’re not obligated to stay who you were.",
+    "Growth often feels like quiet rearranging.",
+    "You can be honest without being cruel to yourself.",
+    "Time doesn’t erase—you reinterpret.",
+    "You are not stuck. You’re considering."
+  ],
+
+  romantic: [
+    "Some connections feel like being understood without translation.",
+    "Not all closeness needs to be loud.",
+    "There’s a difference between being seen and being noticed.",
+    "Care shows up in details most people miss.",
+    "Some bonds feel like shelter more than fireworks.",
+    "Affection doesn’t need an audience.",
+    "You don’t have to perform tenderness for it to be real.",
+    "Some people make rooms feel more habitable.",
+    "Warmth is often quieter than passion, and deeper.",
+    "There’s intimacy in remembering small things.",
+    "Being chosen in ordinary moments is rare.",
+    "Some presences feel like permission to exhale.",
+    "Not all devotion announces itself.",
+    "Closeness is built in repetition, not spectacle.",
+    "You don’t need grand gestures to be deeply felt.",
+    "Care is often just staying.",
+    "Some connections feel like being held without arms.",
+    "Trust grows where patience lives.",
+    "You don’t have to be perfect to be cherished.",
+    "Some feelings are meant to be protected, not displayed."
+  ],
+
+  tired: [
+    "You’re not weak—you’re spent.",
+    "Even strong things need to be set down.",
+    "Rest is not a reward. It’s maintenance.",
+    "You don’t have to justify being tired.",
+    "Your body is asking for cooperation, not discipline.",
+    "Fatigue is information, not failure.",
+    "You’re allowed to stop without collapsing.",
+    "Some days are for recovery, not progress.",
+    "You don’t need to be impressive today.",
+    "Even machines need to cool down.",
+    "Being exhausted doesn’t make you less capable.",
+    "You can continue later.",
+    "Nothing important is lost by resting.",
+    "Your worth doesn’t decrease when your energy does.",
+    "You don’t owe productivity your health.",
+    "Tiredness is not the same as giving up.",
+    "You can be gentle and still be serious about life.",
+    "Pauses are part of endurance.",
+    "You are not behind because you’re resting.",
+    "Tomorrow also exists for you."
+  ]
+};
+
+// Helper
+function getEmotionalMessage(mood) {
+  const pool = emotionalVault[mood];
+  if (!pool || pool.length === 0) return "Nothing came to mind, but you’re not alone in this moment.";
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
 // ================== PICKERS ==================
 
 // ---- Movie / Show ----
