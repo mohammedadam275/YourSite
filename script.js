@@ -618,20 +618,40 @@ function decideSurpriseFrom(topic) {
 
 // ---- Book ----
 function decideBook() {
-  const type = document.getElementById("bookType")?.value;
-  const genre = document.getElementById("bookGenre")?.value;
-  const length = document.getElementById("bookLength")?.value;
-  const outEl = document.getElementById("bookResult");
-  if (!type || !outEl) return;
+  const type = document.getElementById("bookType").value;     // fiction / nonfiction
+  const genre = document.getElementById("bookGenre").value;   // romance, fantasy, etc or "any"
+  const length = document.getElementById("bookLength").value; // any / short
 
-  let pool = type === "fiction"
-    ? fictionBooks[genre] || [].concat(...Object.values(fictionBooks))
-    : nonfictionBooks[genre] || [].concat(...Object.values(nonfictionBooks));
+  let pool = [];
 
-  if (length === "short") pool = pool.slice(0, Math.ceil(pool.length / 2));
+  if (type === "fiction") {
+    if (genre === "any") {
+      pool = [].concat(...Object.values(fictionBooks));
+    } else {
+      pool = fictionBooks[genre] || [].concat(...Object.values(fictionBooks));
+    }
+  } else {
+    if (genre === "any") {
+      pool = [].concat(...Object.values(nonfictionBooks));
+    } else {
+      pool = nonfictionBooks[genre] || [].concat(...Object.values(nonfictionBooks));
+    }
+  }
 
-  outEl.textContent = "You should read: " + randomPick(pool);
+  // If "shorter", bias toward first half of list
+  if (length === "short") {
+    pool = pool.slice(0, Math.ceil(pool.length / 2));
+  }
+
+  if (!pool.length) {
+    document.getElementById("bookResult").textContent = "Couldn't find a book — try again 🤍";
+    return;
+  }
+
+  const pick = randomPick(pool);
+  document.getElementById("bookResult").textContent = "You should read: " + pick;
 }
+
 
 // ================== PLACES ==================
 function getPlaces() {
