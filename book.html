@@ -1,30 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Book</title>
+  <title>Book Picker</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="app">
-  <button class="icon-btn" onclick="toggleDark()">🌙</button>
-  <h1>📚 Book</h1>
+  <div class="app">
+    <header class="topbar">
+      <div class="left">
+        <button class="icon-btn" onclick="toggleDark()">🌙</button>
+      </div>
+      <div class="center">📚 Book Picker</div>
+      <div class="right"></div>
+    </header>
 
-  <select id="bookType" class="input">
-    <option value="fiction">Fiction</option>
-    <option value="nonfiction">Non-fiction</option>
-  </select>
+    <h1>📚 What should you read?</h1>
+    <p>Pick a vibe and let me decide 🤍</p>
 
-  <button class="primary" onclick="decideBook()">Decide</button>
+    <label for="bookType">Type</label>
+    <select id="bookType" class="input">
+      <option value="fiction">Fiction</option>
+      <option value="nonfiction">Non-Fiction</option>
+    </select>
 
-  <div class="result-box">
-    <p id="bookResult">Let’s find a book ✨</p>
+    <label for="bookGenre">Genre</label>
+    <select id="bookGenre" class="input">
+      <!-- Fiction -->
+      <option value="romance">Romance</option>
+      <option value="fantasy">Fantasy</option>
+      <option value="mystery">Mystery</option>
+      <option value="literary">Literary</option>
+
+      <!-- Non-Fiction -->
+      <option value="selfhelp">Self-Help</option>
+      <option value="history">History</option>
+
+      <!-- Fallback -->
+      <option value="any">Surprise me</option>
+    </select>
+
+    <label for="bookLength">Length</label>
+    <select id="bookLength" class="input">
+      <option value="any">Any length</option>
+      <option value="short">Shorter</option>
+      <option value="long">Longer</option>
+    </select>
+
+    <button class="primary" onclick="decideBook()">Decide for me 🤍</button>
+
+    <div class="result-box">
+      <p id="bookResult" class="subtitle">Your pick will appear here ✨</p>
+    </div>
+
+    <a href="home.html">← Back</a>
   </div>
 
-  <a href="home.html">← Back</a>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
