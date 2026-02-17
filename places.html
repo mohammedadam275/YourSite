@@ -8,40 +8,27 @@
 </head>
 <body>
 <div class="app">
-  <header class="topbar">
-    <div class="left">
-      <button class="icon-btn" onclick="toggleDark()">🌙</button>
-    </div>
-    <div class="center">Places 📍</div>
-    <div class="right"></div>
-  </header>
-
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
   <h1>📍 Places</h1>
 
-  <p>Add a place</p>
-  <input id="placeName" class="input" placeholder="e.g., Big Sur coastline" />
-
-  <select id="placeType" class="input" title="Place type" aria-label="Place type">
-    <option value="loved">Been & Loved ❤️</option>
-    <option value="want">Want to Go ✨</option>
+  <input id="placeName" class="input" placeholder="Place name..." />
+  <select id="placeType" class="input">
+    <option value="loved">Loved</option>
+    <option value="want">Want to go</option>
   </select>
-
-  <button class="primary" onclick="addPlace()">Save place 🤍</button>
+  <button class="primary" onclick="addPlace()">Save</button>
 
   <div class="result-box">
-    <h3>❤️ Been & Loved</h3>
-    <div id="placesLoved" class="list"></div>
-
-    <h3 style="margin-top:16px;">✨ Want to Go</h3>
-    <div id="placesWant" class="list"></div>
+    <h3>❤️ Loved</h3>
+    <div id="placesLoved"></div>
+    <h3>✨ Want to go</h3>
+    <div id="placesWant"></div>
   </div>
 
-  <a href="home.html" class="ghost">← Back</a>
+  <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
-<script>
-  renderPlaces();
-</script>
+<script>renderPlaces();</script>
 </body>
 </html>
