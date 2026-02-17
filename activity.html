@@ -8,22 +8,21 @@
 </head>
 <body>
 <div class="app">
-  <h1>🌿 Let’s pick something to do</h1>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <h1>🌿 Activity</h1>
 
-  <p>Energy level?</p>
-  <select id="actEnergy" class="input" title="Energy level" aria-label="Energy level">
-    <option value="low">Low</option>
+  <select id="actEnergy" class="input">
+    <option value="low">Low energy</option>
     <option value="medium">Medium</option>
     <option value="high">High</option>
   </select>
 
-  <p>Stay in or go out?</p>
-  <select id="actPlace" class="input" title="Stay in or go out?" aria-label="Stay in or go out?">
+  <select id="actPlace" class="input">
     <option value="in">Stay in</option>
     <option value="out">Go out</option>
   </select>
 
-  <button class="primary" onclick="decideActivity()">Decide for me 🤍</button>
+  <button class="primary" onclick="decideActivity()">Decide</button>
 
   <div class="result-box">
     <p id="activityResult">Answer and I’ll decide ✨</p>
