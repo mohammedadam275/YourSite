@@ -3,43 +3,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Memory Bank</title>
+  <title>Memories</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 <div class="app">
-  <h1>📓 Your Memory Bank</h1>
-  <p class="subtitle">Save places, activities, and things you watch 🤍</p>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <h1>💭 Memory Bank</h1>
 
-  <label for="memoryType">Type:</label>
-  <select id="memoryType" class="input">
-    <option value="restaurant">Restaurant 🍽️</option>
-    <option value="activity">Activity 🌿</option>
-    <option value="movie">Movie 🎬</option>
-    <option value="show">Show 📺</option>
-    <option value="note">Note 💭</option>
-  </select>
-
-  <input id="memoryTitle" class="input" placeholder="Title or name" />
-
-  <label for="memoryStatus">Status (for movies/shows):</label>
-  <select id="memoryStatus" class="input" aria-label="Status (for movies/shows)">
-    <option value="want">Want to watch</option>
-    <option value="watched">Already watched</option>
-  </select>
-
-  <textarea id="memoryNote" class="input" placeholder="Notes (optional)"></textarea>
-
-  <button class="primary" onclick="addMemory()">Save 🤍</button>
+  <input id="memoryTitle" class="input" placeholder="Title..." />
+  <textarea id="memoryNote" class="input" placeholder="Note..."></textarea>
+  <button class="primary" onclick="addMemory()">Save</button>
 
   <div class="result-box">
-    <h3>Saved</h3>
     <div id="memoryList"></div>
   </div>
 
-  <a href="home.html" class="ghost">← Back</a>
+  <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
+<script>renderMemories();</script>
 </body>
 </html>
