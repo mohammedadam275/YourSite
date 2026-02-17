@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,20 +8,27 @@
 </head>
 <body>
 <div class="app">
-  <button class="icon-btn" onclick="toggleDark()">🌙</button>
-  <h1>🌱 Gentle Habits</h1>
+  <header class="topbar">
+    <div class="left">
+      <button class="icon-btn" onclick="toggleDark()">🌙</button>
+    </div>
+    <div class="center">Habits 🌱</div>
+    <div class="right"></div>
+  </header>
+
+  <h1>🌱 My Habits</h1>
+  <p class="subtitle">Add your own habits and check them off anytime.</p>
+
+  <input id="newHabitInput" class="input" placeholder="e.g., Drink water, Stretch, Journal..." />
+  <button class="primary" onclick="addHabit()">Add Habit</button>
 
   <div class="result-box">
     <div id="habitsList"></div>
   </div>
 
-  <div class="result-box">
-    <input id="newHabitInput" class="input" placeholder="Add a habit..." />
-    <button class="primary" onclick="addHabit()">Add</button>
-    <button class="primary" style="background:#ef4444" onclick="clearHabits()">Clear all</button>
-  </div>
+  <button class="ghost" onclick="clearHabits()">Clear All Habits</button>
 
-  <a href="home.html">← Back</a>
+  <a href="home.html" class="ghost">← Back</a>
 </div>
 
 <script src="script.js"></script>
