@@ -8,26 +8,19 @@
 </head>
 <body>
 <div class="app">
-  <h1>🍣 Let’s pick food</h1>
+  <button class="icon-btn" onclick="toggleDark()">🌙</button>
+  <h1>🍣 Food</h1>
 
-  <p>How’s your energy?</p>
-  <select id="foodEnergy" class="input" title="How’s your energy?">
-    <option value="low">Low</option>
-    <option value="medium">Medium</option>
-    <option value="high">High</option>
-  </select>
-
-  <p>What do you want?</p>
-  <select id="foodVibe" class="input" title="What do you want?">
+  <select id="foodVibe" class="input">
     <option value="comfort">Comfort</option>
     <option value="fresh">Fresh</option>
     <option value="new">Something new</option>
   </select>
 
-  <button class="primary" onclick="decideFood()">Decide for me 🤍</button>
+  <button class="primary" onclick="decideFood()">Decide</button>
 
   <div class="result-box">
-    <p id="foodResult">Answer and I’ll decide ✨</p>
+    <p id="foodResult">Tell me your vibe ✨</p>
   </div>
 
   <a href="home.html">← Back</a>
