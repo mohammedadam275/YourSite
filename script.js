@@ -1,18 +1,11 @@
-// ================== DARK MODE (WORKING) ==================
-
-// Runs on every page load and applies saved mode
 // ================== DARK MODE (DEFAULT = ON) ==================
 (function initDarkMode() {
   const saved = localStorage.getItem("darkMode");
-
-  // If there's no saved preference yet, default to DARK
   const isDark = saved === null ? true : saved === "true";
-
   document.body.classList.toggle("dark", isDark);
   localStorage.setItem("darkMode", isDark.toString());
 })();
 
-// Toggle function (🌙 button)
 function toggleDark() {
   const isDarkNow = document.body.classList.toggle("dark");
   localStorage.setItem("darkMode", isDarkNow.toString());
@@ -22,8 +15,11 @@ function toggleDark() {
 const acceptedAnswers = ["carissa", "me"];
 
 function checkAnswer() {
-  const input = document.getElementById("answerInput").value.trim().toLowerCase();
+  const inputEl = document.getElementById("answerInput");
   const msg = document.getElementById("gateMessage");
+  if (!inputEl || !msg) return;
+
+  const input = inputEl.value.trim().toLowerCase();
   if (acceptedAnswers.includes(input)) {
     window.location.href = "home.html";
   } else {
@@ -31,67 +27,87 @@ function checkAnswer() {
   }
 }
 
-// ================== Memory Bank ==================
-function getMemories() {
-  return JSON.parse(localStorage.getItem("memories") || "[]");
+// ================== Helpers ==================
+function randomPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
+
+// ================== MEMORY BANK ==================
+function getMemories() {
+  try {
+    return JSON.parse(localStorage.getItem("memories") || "[]");
+  } catch {
+    localStorage.setItem("memories", "[]");
+    return [];
+  }
+}
+
 function saveMemories(arr) {
   localStorage.setItem("memories", JSON.stringify(arr));
 }
+
 function addMemory() {
-  const type = document.getElementById("memoryType").value;
-  const title = document.getElementById("memoryTitle").value.trim();
+  const typeEl = document.getElementById("memoryType");
+  const titleEl = document.getElementById("memoryTitle");
+  const noteEl = document.getElementById("memoryNote");
   const statusEl = document.getElementById("memoryStatus");
-  const status = statusEl ? statusEl.value : null;
-  const note = document.getElementById("memoryNote").value.trim();
+
+  if (!titleEl) return;
+
+  const title = titleEl.value.trim();
   if (!title) return alert("Please add a title 🤍");
+
+  const type = typeEl ? typeEl.value : null;
+  const note = noteEl ? noteEl.value.trim() : "";
+  const status = statusEl ? statusEl.value : null;
 
   const memories = getMemories();
   memories.push({
     id: Date.now(),
     type,
     title,
-    status: (type === "movie" || type === "show" || type === "book") ? status : null,
+    status,
     note
   });
+
   saveMemories(memories);
-  document.getElementById("memoryTitle").value = "";
-  if (document.getElementById("memoryNote")) document.getElementById("memoryNote").value = "";
+  titleEl.value = "";
+  if (noteEl) noteEl.value = "";
   renderMemories();
 }
+
 function deleteMemory(id) {
   const memories = getMemories().filter(m => m.id !== id);
   saveMemories(memories);
   renderMemories();
 }
+
 function renderMemories() {
   const list = document.getElementById("memoryList");
   if (!list) return;
+
   const memories = getMemories();
   list.innerHTML = "";
-  if (memories.length === 0) {
-    list.innerHTML = "<p class='tag'>No memories yet 🤍</p>";
+
+  if (!memories.length) {
+    list.innerHTML = "<p class='subtitle'>No memories yet 🤍</p>";
     return;
   }
+
   memories.forEach(m => {
     const div = document.createElement("div");
+    div.className = "list-item";
     div.innerHTML = `
-      <strong>${m.title}</strong><br/>
-      ${m.status ? `<span class="tag">${m.status === "want" ? "📌 Want" : "✅ Done"}</span><br/>` : ""}
-      <small>${m.note || ""}</small><br/>
-      <button class="ghost" onclick="deleteMemory(${m.id})">Delete</button>
+      <div>
+        <strong>${m.title}</strong><br/>
+        ${m.status ? `<span class="tag">${m.status === "want" ? "📌 Want" : "✅ Done"}</span><br/>` : ""}
+        <small>${m.note || ""}</small>
+      </div>
+      <button class="icon-btn" onclick="deleteMemory(${m.id})">🗑️</button>
     `;
     list.appendChild(div);
   });
 }
-document.addEventListener("DOMContentLoaded", renderMemories);
-
-// ================== Helpers ==================
-function randomPick(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-// ================== HUGE LISTS ==================
 
 // ---------- MOVIES (75+ each) ----------
 const comfortMovies = [
@@ -428,25 +444,23 @@ const nonfictionBooks = {
 
 // ================== PICKERS ==================
 
+// ---- Movie / Show ----
 let lastPick = null;
 let lastPickType = null;
 
-// ---- Movie / Show ----
 function decideMovie() {
-  const brain = document.getElementById("movieBrain").value;
-  const watchType = document.getElementById("watchType").value;
-  const genre = document.getElementById("genreMood").value;
+  const brain = document.getElementById("movieBrain")?.value;
+  const watchType = document.getElementById("watchType")?.value;
+  const genre = document.getElementById("genreMood")?.value;
+  const outEl = document.getElementById("movieResult");
+  if (!outEl || !watchType || !genre) return;
 
   let pool;
   if (watchType === "movie") {
-    if (genre === "comfort") pool = comfortMovies;
-    else if (genre === "fun") pool = funMovies;
-    else pool = interestingMovies;
+    pool = genre === "fun" ? funMovies : genre === "interesting" ? interestingMovies : comfortMovies;
     if (brain === "off") pool = comfortMovies;
   } else {
-    if (genre === "comfort") pool = comfortShows;
-    else if (genre === "fun") pool = funShows;
-    else pool = interestingShows;
+    pool = genre === "fun" ? funShows : genre === "interesting" ? interestingShows : comfortShows;
     if (brain === "off") pool = comfortShows;
   }
 
@@ -454,229 +468,102 @@ function decideMovie() {
   lastPick = pick;
   lastPickType = watchType;
 
-  document.getElementById("movieResult").textContent =
-    (watchType === "movie" ? "You should watch: " : "You should start: ") + pick;
-
-  const saveActions = document.getElementById("saveActions");
-  if (saveActions) saveActions.style.display = "block";
-}
-
-function savePick(status) {
-  if (!lastPick || !lastPickType) return;
-  const memories = getMemories();
-  if (memories.some(m => m.type === lastPickType && m.title === lastPick)) {
-    alert("Already in your Memory Bank 🤍");
-    return;
-  }
-  memories.push({
-    id: Date.now(),
-    type: lastPickType,
-    title: lastPick,
-    status: status,
-    note: ""
-  });
-  saveMemories(memories);
-  alert("Saved 🤍");
+  outEl.textContent = (watchType === "movie" ? "You should watch: " : "You should start: ") + pick;
 }
 
 // ---- Food ----
 function decideFood() {
-  const energyEl = document.getElementById("foodEnergy"); // low / medium / high
-  const vibeEl = document.getElementById("foodVibe");     // comfort / fresh / new
+  const energy = document.getElementById("foodEnergy")?.value;
+  const vibe = document.getElementById("foodVibe")?.value;
   const outEl = document.getElementById("foodResult");
+  if (!energy || !vibe || !outEl) return;
 
-  if (!energyEl || !vibeEl || !outEl) {
-    console.error("Food IDs missing: foodEnergy, foodVibe, foodResult");
-    return;
-  }
+  let pool = vibe === "fresh" ? freshFoods : vibe === "new" ? newFoods : comfortFoods;
+  if (energy === "low") pool = comfortFoods;
 
-  const energy = energyEl.value;
-  const vibe = vibeEl.value;
-
-  // 1) Pick pool strictly by what she wants
-  let pool;
-  if (vibe === "comfort") {
-    pool = comfortFoods;
-  } else if (vibe === "fresh") {
-    pool = freshFoods;
-  } else {
-    pool = newFoods; // "something new"
-  }
-
-  // 2) Energy influence (only nudges, no location logic)
-  // If she's low energy, we bias to comfort regardless of vibe
-  if (energy === "low") {
-    pool = comfortFoods;
-  }
-
-  // 3) Pick and display
-  const pick = pool[Math.floor(Math.random() * pool.length)];
-  outEl.textContent = "You should have: " + pick;
+  outEl.textContent = "You should have: " + randomPick(pool);
 }
-
 
 // ---- Activity ----
 function decideActivity() {
-  const energyEl = document.getElementById("actEnergy");   // low / medium / high
-  const placeEl = document.getElementById("actPlace");     // in / out
+  const energy = document.getElementById("actEnergy")?.value;
+  const place = document.getElementById("actPlace")?.value;
   const outEl = document.getElementById("activityResult");
+  if (!energy || !place || !outEl) return;
 
-  if (!energyEl || !placeEl || !outEl) {
-    console.error("Activity IDs missing: actEnergy, actPlace, activityResult");
-    return;
-  }
-
-  const energy = energyEl.value;
-  const place = placeEl.value;
-
-  let pool = [];
-
-  // Respect location FIRST
+  let pool;
   if (place === "out") {
-    // Going out: energy controls intensity
-    if (energy === "low") {
-      pool = outLowEnergy;        // easy, low-effort outings
-    } else if (energy === "medium") {
-      pool = outMediumEnergy;     // moderate outings
-    } else {
-      pool = outHighEnergy;       // bigger adventures
-    }
+    pool = energy === "low" ? outLowEnergy : energy === "medium" ? outMediumEnergy : outHighEnergy;
   } else {
-    // Staying in: energy controls how demanding it is
-    if (energy === "low") {
-      pool = inChill;             // cozy, restful
-    } else if (energy === "medium") {
-      pool = inFun;               // fun but not exhausting
-    } else {
-      pool = inProductive;        // higher-effort at-home stuff
-    }
+    pool = energy === "low" ? inChill : energy === "medium" ? inFun : inProductive;
   }
 
-  if (!pool || pool.length === 0) {
-    outEl.textContent = "Hmm, I couldn’t think of anything—try again 🤍";
-    return;
-  }
-
-  const pick = pool[Math.floor(Math.random() * pool.length)];
-  outEl.textContent = "You should: " + pick;
+  outEl.textContent = "You should: " + randomPick(pool);
 }
-
-
 
 // ---- Surprise ----
 function decideSurprise() {
-  const topic = document.getElementById("surpriseTopic").value;
-  if (topic === "anything") {
-    const options = ["food","watch","activity","book"];
-    return decideSurpriseFrom(randomPick(options));
-  }
-  decideSurpriseFrom(topic);
-}
+  const topic = document.getElementById("surpriseTopic")?.value;
+  const outEl = document.getElementById("surpriseResult");
+  if (!topic || !outEl) return;
 
-function decideSurpriseFrom(topic) {
   if (topic === "food") {
-    document.getElementById("surpriseResult").textContent = "Surprise food idea: " + randomPick([...comfortFoods, ...freshFoods, ...newFoods]);
+    outEl.textContent = "Surprise food idea: " + randomPick([...comfortFoods, ...freshFoods, ...newFoods]);
   } else if (topic === "watch") {
-    document.getElementById("surpriseResult").textContent = "Surprise watch pick: " + randomPick([...comfortMovies, ...funMovies, ...interestingMovies]);
-  } } else if (topic === "activity") {
-  const allActivities = [
-    ...outLowEnergy, ...outMediumEnergy, ...outHighEnergy,
-    ...inChill, ...inFun, ...inProductive
-  ];
-  document.getElementById("surpriseResult").textContent =
-    "Surprise activity: " + randomPick(allActivities);
-}
-
+    outEl.textContent = "Surprise watch pick: " + randomPick([...comfortMovies, ...funMovies, ...interestingMovies]);
+  } else if (topic === "activity") {
+    const allActivities = [...outLowEnergy, ...outMediumEnergy, ...outHighEnergy, ...inChill, ...inFun, ...inProductive];
+    outEl.textContent = "Surprise activity: " + randomPick(allActivities);
   } else if (topic === "book") {
     const allBooks = [
       ...fictionBooks.romance, ...fictionBooks.fantasy, ...fictionBooks.mystery, ...fictionBooks.literary,
       ...nonfictionBooks.selfhelp, ...nonfictionBooks.history
     ];
-    document.getElementById("surpriseResult").textContent = "Surprise book: " + randomPick(allBooks);
+    outEl.textContent = "Surprise book: " + randomPick(allBooks);
   }
 }
 
 // ---- Book ----
 function decideBook() {
-  const type = document.getElementById("bookType").value;
-  const genre = document.getElementById("bookGenre").value;
-  const length = document.getElementById("bookLength").value;
+  const type = document.getElementById("bookType")?.value;
+  const genre = document.getElementById("bookGenre")?.value;
+  const length = document.getElementById("bookLength")?.value;
+  const outEl = document.getElementById("bookResult");
+  if (!type || !outEl) return;
 
-  let pool = [];
-  if (type === "fiction") {
-    pool = fictionBooks[genre] || [].concat(...Object.values(fictionBooks));
-  } else {
-    pool = nonfictionBooks[genre] || [].concat(...Object.values(nonfictionBooks));
-  }
+  let pool = type === "fiction"
+    ? fictionBooks[genre] || [].concat(...Object.values(fictionBooks))
+    : nonfictionBooks[genre] || [].concat(...Object.values(nonfictionBooks));
 
-  if (length === "short") {
-    pool = pool.slice(0, Math.ceil(pool.length / 2));
-  }
+  if (length === "short") pool = pool.slice(0, Math.ceil(pool.length / 2));
 
-  const pick = randomPick(pool);
-  document.getElementById("bookResult").textContent = "You should read: " + pick;
+  outEl.textContent = "You should read: " + randomPick(pool);
 }
-// ================== PLACES (USER-ENTERED ONLY) ==================
 
+// ================== PLACES ==================
 function getPlaces() {
-  const saved = JSON.parse(localStorage.getItem("places"));
-  if (!saved) {
+  try {
+    return JSON.parse(localStorage.getItem("places") || '{"loved":[],"want":[]}');
+  } catch {
     const empty = { loved: [], want: [] };
     localStorage.setItem("places", JSON.stringify(empty));
     return empty;
   }
-  return saved;
 }
 
 function addPlace() {
   const nameEl = document.getElementById("placeName");
   const typeEl = document.getElementById("placeType");
-
   if (!nameEl || !typeEl) return;
 
   const name = nameEl.value.trim();
-  const type = typeEl.value; // "loved" or "want"
-
   if (!name) return;
 
   const places = getPlaces();
-  places[type].unshift({ name });
-
+  places[typeEl.value].unshift({ name });
   localStorage.setItem("places", JSON.stringify(places));
-
   nameEl.value = "";
   renderPlaces();
-}
-
-function renderPlaces() {
-  const lovedEl = document.getElementById("placesLoved");
-  const wantEl = document.getElementById("placesWant");
-
-  if (!lovedEl || !wantEl) return;
-
-  const places = getPlaces();
-
-  lovedEl.innerHTML = places.loved.length
-    ? places.loved.map((p, i) => `
-        <div class="list-item">
-          <div><strong>${p.name}</strong></div>
-          <div class="actions">
-            <button class="icon-btn" onclick="deletePlace('loved', ${i})">🗑️</button>
-          </div>
-        </div>
-      `).join("")
-    : `<p class="subtitle">No places yet. Add your favorites 🤍</p>`;
-
-  wantEl.innerHTML = places.want.length
-    ? places.want.map((p, i) => `
-        <div class="list-item">
-          <div><strong>${p.name}</strong></div>
-          <div class="actions">
-            <button class="icon-btn" onclick="deletePlace('want', ${i})">🗑️</button>
-          </div>
-        </div>
-      `).join("")
-    : `<p class="subtitle">No places yet. Add places you want to go ✨</p>`;
 }
 
 function deletePlace(type, index) {
@@ -686,21 +573,28 @@ function deletePlace(type, index) {
   renderPlaces();
 }
 
-// ================== IDEAS VAULT ==================
+function renderPlaces() {
+  const lovedEl = document.getElementById("placesLoved");
+  const wantEl = document.getElementById("placesWant");
+  if (!lovedEl || !wantEl) return;
 
+  const places = getPlaces();
+
+  lovedEl.innerHTML = places.loved.length
+    ? places.loved.map((p, i) => `<div class="list-item"><span>${p.name}</span><button class="icon-btn" onclick="deletePlace('loved',${i})">🗑️</button></div>`).join("")
+    : "<p class='subtitle'>No loved places yet 🤍</p>";
+
+  wantEl.innerHTML = places.want.length
+    ? places.want.map((p, i) => `<div class="list-item"><span>${p.name}</span><button class="icon-btn" onclick="deletePlace('want',${i})">🗑️</button></div>`).join("")
+    : "<p class='subtitle'>No places yet ✨</p>";
+}
+
+// ================== IDEAS ==================
 function getIdeas() {
-  const raw = localStorage.getItem("ideas");
-
-  if (!raw) {
-    localStorage.setItem("ideas", JSON.stringify([]));
-    return [];
-  }
-
   try {
-    return JSON.parse(raw);
-  } catch (e) {
-    console.error("Corrupted ideas in storage, resetting.", e);
-    localStorage.setItem("ideas", JSON.stringify([]));
+    return JSON.parse(localStorage.getItem("ideas") || "[]");
+  } catch {
+    localStorage.setItem("ideas", "[]");
     return [];
   }
 }
@@ -708,18 +602,13 @@ function getIdeas() {
 function addIdea() {
   const textEl = document.getElementById("ideaText");
   const tagEl = document.getElementById("ideaTag");
-
-  if (!textEl || !tagEl) {
-    console.error("Idea inputs not found");
-    return;
-  }
+  if (!textEl || !tagEl) return;
 
   const text = textEl.value.trim();
   if (!text) return;
 
   const ideas = getIdeas();
   ideas.unshift({ text, tag: tagEl.value });
-
   localStorage.setItem("ideas", JSON.stringify(ideas));
   textEl.value = "";
   renderIdeas();
@@ -737,81 +626,28 @@ function renderIdeas() {
   if (!el) return;
 
   const ideas = getIdeas();
-
-  if (!ideas.length) {
-    el.innerHTML = `<p class="subtitle">No ideas yet. Add one 🤍</p>`;
-    return;
-  }
-
-  el.innerHTML = ideas.map((i, idx) => `
-    <div class="list-item">
-      <div>
-        <strong>${i.text}</strong>
-        <div class="subtitle">#${i.tag}</div>
-      </div>
-      <div class="actions">
+  el.innerHTML = ideas.length
+    ? ideas.map((i, idx) => `
+      <div class="list-item">
+        <div><strong>${i.text}</strong><div class="subtitle">#${i.tag}</div></div>
         <button class="icon-btn" onclick="deleteIdea(${idx})">🗑️</button>
       </div>
-    </div>
-  `).join("");
-}
-
-
-// ================== HABITS ==================
-
-const defaultHabits = [
-  "Drink water","Stretch 5 minutes","Go outside","Read 10 pages","Tidy one small area",
-  "Take deep breaths","Eat something nourishing","Short walk","Journal one sentence",
-  "Make the bed","Open a window","Listen to music","Light movement","Practice gratitude",
-  "Limit screen time","Meditate 5 minutes","Make tea","Posture check","Organize one drawer",
-  "Practice a hobby","Plan tomorrow","Water plants","Prep clothes","Do skincare",
-  "Neck stretches","Write goals","Check calendar","Clean desk","Do laundry","Read something calming"
-];
-
-function getHabits() {
-  const saved = JSON.parse(localStorage.getItem("habits"));
-  if (!saved) {
-    const seeded = defaultHabits.map(name => ({ name, done: false }));
-    localStorage.setItem("habits", JSON.stringify(seeded));
-    return seeded;
-  }
-  return saved;
-}
-
-function toggleHabit(index) {
-  const habits = getHabits();
-  habits[index].done = !habits[index].done;
-  localStorage.setItem("habits", JSON.stringify(habits));
-  renderHabits();
+    `).join("")
+    : "<p class='subtitle'>No ideas yet 🤍</p>";
 }
 
 // ================== HABITS ==================
-
 function getHabits() {
-  const raw = localStorage.getItem("habits");
-
-  if (!raw) {
-    localStorage.setItem("habits", JSON.stringify([]));
-    return [];
-  }
-
   try {
-    return JSON.parse(raw);
+    return JSON.parse(localStorage.getItem("habits") || "[]");
   } catch {
-    localStorage.setItem("habits", JSON.stringify([]));
+    localStorage.setItem("habits", "[]");
     return [];
   }
 }
 
 function saveHabits(habits) {
   localStorage.setItem("habits", JSON.stringify(habits));
-}
-
-function toggleHabit(index) {
-  const habits = getHabits();
-  habits[index].done = !habits[index].done;
-  saveHabits(habits);
-  renderHabits();
 }
 
 function addHabit() {
@@ -823,9 +659,15 @@ function addHabit() {
 
   const habits = getHabits();
   habits.push({ text, done: false });
-
   saveHabits(habits);
   input.value = "";
+  renderHabits();
+}
+
+function toggleHabit(index) {
+  const habits = getHabits();
+  habits[index].done = !habits[index].done;
+  saveHabits(habits);
   renderHabits();
 }
 
@@ -847,20 +689,13 @@ function renderHabits() {
   if (!el) return;
 
   const habits = getHabits();
-
-  if (!habits.length) {
-    el.innerHTML = `<p class="subtitle">No habits yet. Add one 🤍</p>`;
-    return;
-  }
-
-  el.innerHTML = habits.map((h, i) => `
-    <div class="list-item">
-      <div onclick="toggleHabit(${i})" style="cursor:pointer;">
-        ${h.done ? "✅" : "⬜"} ${h.text}
+  el.innerHTML = habits.length
+    ? habits.map((h, i) => `
+      <div class="list-item">
+        <span onclick="toggleHabit(${i})" style="cursor:pointer;">${h.done ? "✅" : "⬜"} ${h.text}</span>
+        <button class="icon-btn" onclick="deleteHabit(${i})">🗑️</button>
       </div>
-      <button class="icon-btn" onclick="deleteHabit(${i})">🗑️</button>
-    </div>
-  `).join("");
+    `).join("")
+    : "<p class='subtitle'>No habits yet 🤍</p>";
 }
-
 
