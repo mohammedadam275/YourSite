@@ -580,25 +580,41 @@ function decideActivity() {
 
 // ---- Surprise ----
 function decideSurprise() {
-  const topic = document.getElementById("surpriseTopic")?.value;
-  const outEl = document.getElementById("surpriseResult");
-  if (!topic || !outEl) return;
+  const topic = document.getElementById("surpriseTopic").value;
+  decideSurpriseFrom(topic);
+}
 
-  if (topic === "food") {
-    outEl.textContent = "Surprise food idea: " + randomPick([...comfortFoods, ...freshFoods, ...newFoods]);
+function decideSurpriseFrom(topic) {
+  if (topic === "date") {
+    document.getElementById("surpriseResult").textContent =
+      "Date idea: " + randomPick(dateIdeas);
+
+  } else if (topic === "food") {
+    document.getElementById("surpriseResult").textContent =
+      "Surprise food idea: " + randomPick([...comfortFoods, ...freshFoods, ...newFoods]);
+
   } else if (topic === "watch") {
-    outEl.textContent = "Surprise watch pick: " + randomPick([...comfortMovies, ...funMovies, ...interestingMovies]);
+    document.getElementById("surpriseResult").textContent =
+      "Surprise watch pick: " + randomPick([...comfortMovies, ...funMovies, ...interestingMovies]);
+
   } else if (topic === "activity") {
-    const allActivities = [...outLowEnergy, ...outMediumEnergy, ...outHighEnergy, ...inChill, ...inFun, ...inProductive];
-    outEl.textContent = "Surprise activity: " + randomPick(allActivities);
+    const allActivities = [
+      ...outLowEnergy, ...outMediumEnergy, ...outHighEnergy,
+      ...inChill, ...inFun, ...inProductive
+    ];
+    document.getElementById("surpriseResult").textContent =
+      "Surprise activity: " + randomPick(allActivities);
+
   } else if (topic === "book") {
     const allBooks = [
       ...fictionBooks.romance, ...fictionBooks.fantasy, ...fictionBooks.mystery, ...fictionBooks.literary,
       ...nonfictionBooks.selfhelp, ...nonfictionBooks.history
     ];
-    outEl.textContent = "Surprise book: " + randomPick(allBooks);
+    document.getElementById("surpriseResult").textContent =
+      "Surprise book: " + randomPick(allBooks);
   }
 }
+
 
 // ---- Book ----
 function decideBook() {
