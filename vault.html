@@ -11,28 +11,38 @@
   <button class="icon-btn" onclick="toggleDark()">🌙</button>
 
   <h1>🗝️ Emotional Vault</h1>
-  <p class="subtitle">Open one when you need it 🤍</p>
+  <p class="subtitle">Choose what you’re carrying, and open one 🤍</p>
 
-  <div class="result-box">
-<button class="primary" onclick="openVault('anxious')">💭 Open when your mind won’t slow down</button>
-<button class="primary" onclick="openVault('tired')">🌙 Open when you can’t rest</button>
-<button class="primary" onclick="openVault('lonely')">🫂 Open when you feel alone</button>
-<button class="primary" onclick="openVault('overwhelmed')">🌧️ Open when today was too much</button>
-<button class="primary" onclick="openVault('calm')">🌤️ Open when you need quiet</button>
-<button class="primary" onclick="openVault('confident')">✨ Open when you need strength</button>
-<button class="primary" onclick="openVault('romantic')">💌 Open when your heart feels full</button>
-<button class="primary" onclick="openVault('sad')">🖤 Open when you feel heavy</button>
-<button class="primary" onclick="openVault('hopeful')">🌱 Open when you need light</button>
-<button class="primary" onclick="openVault('reflective')">📖 Open when you’re thinking deeply</button>
-  </div>
+  <!-- Mood Picker -->
+  <select id="vaultMood" class="input">
+    <option value="calm">🌿 When you need calm</option>
+    <option value="anxious">💭 When your mind won’t slow down</option>
+    <option value="sad">🌧️ When your heart feels heavy</option>
+    <option value="lonely">🫂 When you feel alone</option>
+    <option value="overwhelmed">🌪️ When everything is too much</option>
+    <option value="hopeful">✨ When you’re starting to believe again</option>
+    <option value="confident">🕯️ When you need to remember your strength</option>
+    <option value="reflective">📖 When you’re thinking deeply</option>
+    <option value="romantic">💫 When your heart feels soft</option>
+    <option value="tired">🌙 When you’re exhausted</option>
+  </select>
 
-  <div class="result-box" style="margin-top:16px;">
-    <p id="vaultResult">Pick one 🤍</p>
+  <button class="primary" onclick="openSelectedVault()">Open the vault</button>
+
+  <!-- Big Output Box -->
+  <div class="result-box vault-box">
+    <p id="vaultResult">Pick a feeling above 🤍</p>
   </div>
 
   <a href="home.html">← Back</a>
 </div>
 
 <script src="script.js"></script>
+<script>
+  function openSelectedVault() {
+    const mood = document.getElementById("vaultMood").value;
+    openVault(mood);
+  }
+</script>
 </body>
 </html>
