@@ -637,11 +637,19 @@ function renderIdeas() {
 }
 
 // ================== HABITS ==================
+
 function getHabits() {
+  const raw = localStorage.getItem("habits");
+
+  if (!raw) {
+    localStorage.setItem("habits", JSON.stringify([]));
+    return [];
+  }
+
   try {
-    return JSON.parse(localStorage.getItem("habits") || "[]");
+    return JSON.parse(raw);
   } catch {
-    localStorage.setItem("habits", "[]");
+    localStorage.setItem("habits", JSON.stringify([]));
     return [];
   }
 }
@@ -659,6 +667,7 @@ function addHabit() {
 
   const habits = getHabits();
   habits.push({ text, done: false });
+
   saveHabits(habits);
   input.value = "";
   renderHabits();
@@ -689,13 +698,20 @@ function renderHabits() {
   if (!el) return;
 
   const habits = getHabits();
-  el.innerHTML = habits.length
-    ? habits.map((h, i) => `
-      <div class="list-item">
-        <span onclick="toggleHabit(${i})" style="cursor:pointer;">${h.done ? "✅" : "⬜"} ${h.text}</span>
-        <button class="icon-btn" onclick="deleteHabit(${i})">🗑️</button>
+
+  if (!habits.length) {
+    el.innerHTML = `<p class="subtitle">No habits yet. Add one 🌱</p>`;
+    return;
+  }
+
+  el.innerHTML = habits.map((h, i) => `
+    <div class="list-item">
+      <div onclick="toggleHabit(${i})" style="cursor:pointer;">
+        ${h.done ? "✅" : "⬜"} ${h.text}
       </div>
-    `).join("")
-    : "<p class='subtitle'>No habits yet 🤍</p>";
+      <button class="icon-btn" onclick="deleteHabit(${i})">🗑️</button>
+    </div>
+  `).join("");
 }
+
 
