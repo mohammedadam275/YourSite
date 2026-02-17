@@ -759,6 +759,14 @@ function getEmotionalMessage(mood) {
   if (!pool || pool.length === 0) return "Nothing came to mind, but you’re not alone in this moment.";
   return pool[Math.floor(Math.random() * pool.length)];
 }
+function openVault(mood) {
+  const outEl = document.getElementById("vaultResult");
+  if (!outEl) return;
+
+  const message = getEmotionalMessage(mood);
+  outEl.textContent = message;
+}
+
 
 // ================== PICKERS ==================
 
