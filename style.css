@@ -285,3 +285,16 @@ body.dark .subtitle {
     font-size: 0.95rem;
   }
 }
+/* ===== Emotional Vault Special Box ===== */
+.vault-box {
+  margin-top: 24px;
+  min-height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  padding: 24px;
+}
+
